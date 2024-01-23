@@ -1,0 +1,48 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: store-gw-virtualservice
+  namespace: production
+  labels:
+    service: store-gw-virtualservice
+spec:
+  hosts:
+    - store.jhipster.34.76.233.160.nip.io
+  gateways:
+    - store-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /
+          headers:
+            user-agent:
+              regex: "Chrome"
+          route:
+          - destination:
+              host: store
+              subset: v2
+          fault:
+            delay:
+              percent: 50
+              fixedDelay: 10s
+          retries:
+            attempts: 3
+            perTryTimeout: 2s  
+    - match:
+        - uri:
+            prefix: /
+          route:
+          - destination:
+              host: store
+              subset: v1
+          fault:
+            abort:
+              percentage: 
+                value: 50
+              httpStatus: 500
+    - match:
+        - uri:
+            prefix: /services/invoice/ 
+      rewrite
+            u               
+                  
