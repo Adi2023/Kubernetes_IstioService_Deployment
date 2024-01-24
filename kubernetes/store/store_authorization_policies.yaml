@@ -1,0 +1,27 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: authorization-policy-store-to-invoice
+  namespace: production
+spec:
+  selector:
+    matchLabels:
+      app: store
+  action: ALLOW
+  rules:
+  - to:
+    - operation:
+        methods: ["GET"]
+      paths: ["/invoice"]
+    from:
+    - source:
+        labels:
+          app: store
+  - to:
+    - operation:
+        methods: ["POST"]
+      paths: ["/invoice"]
+    from:
+    - source:
+        labels:
+          app: store

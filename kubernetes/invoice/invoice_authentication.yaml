@@ -1,0 +1,26 @@
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: invoice-peer-policy
+  namespace: production
+spec:
+  selector:
+    matchLabels:
+      app: invoice
+  mtls:
+    mode: STRICT
+---
+apiVersion: security.istio.io/v1beta1
+kind: RequestAuthentication
+metadata:
+  name: invoice-request-policy
+  namespace: production
+spec:
+  selector:
+    matchLabels:
+      app: invoice
+  jwtRules:
+  - issuer: https://invoice-idp.example.com
+    jwksUri: https://invoice-idp.example.com/.well-known/jwks.json
+
+
