@@ -2,6 +2,9 @@
 
 Welcome to the deployment project for a full-stack Ecommerce website on Kubernetes using the powerful Istio Service Mesh. This project covers a wide range of topics, providing a comprehensive guide to deploying, managing, and securing microservices in a Kubernetes environment with Istio.
 
+![Architecture Diagram](./images/MicroService-Architecture-on-istio.jpg)
+
+
 ## Project Overview
 
 In this project, I leverage Kubernetes to orchestrate the deployment of microservices that collectively form a robust Ecommerce website. Istio is my service mesh of choice, which is employed to enhance the capabilities of our microservices, focusing on key features such as:
