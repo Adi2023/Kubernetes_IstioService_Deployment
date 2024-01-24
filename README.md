@@ -36,11 +36,7 @@ As part of our commitment to security, the project delves into various Istio fea
 
 ## Getting Started
 
-To get started with deploying your own Ecommerce website using Kubernetes and Istio, follow these steps:
-
-1. Clone the repository: `git clone https://github.com/Adi2023/Kubernetes_IstioService_Deployment.git`
-2. Navigate to the project directory: `cd your-repo`
-3. Follow the detailed instructions in the provided documentation to deploy your Ecommerce application.
+Feel free to get started with this microservice architecture and play around with additional Istio features.
 
 ## Contributions
 
