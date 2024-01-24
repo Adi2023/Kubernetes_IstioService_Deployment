@@ -1,0 +1,26 @@
+# PeerAuthentication policy for the "store" service enforcing STRICT mutual TLS
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: store-peer-policy
+  namespace: production
+spec:
+  selector:
+    matchLabels:
+      app: store
+  mtls:
+    mode: STRICT
+---
+# RequestAuthentication policy for the "store" service validating JWT tokens
+apiVersion: security.istio.io/v1beta1
+kind: RequestAuthentication
+metadata:
+  name: store-request-policy
+  namespace: production
+spec:
+  selector:
+    matchLabels:
+      app: store
+  jwtRules:
+  - issuer: https://store-idp.example.com
+    jwksUri: https://store-idp.example.com/.well-known/jwks.json

@@ -1,6 +1,4 @@
-# This configuration uses 'http' and is not recommended for production use.
-# Refer https://istio.io/latest/docs/reference/config/networking/gateway/ for a more secure 'https' config
-# using certificates and prefer that for production use
+# Istio Gateway configuration for the "store" service
 apiVersion: networking.istio.io/v1beta1
 kind: Gateway
 metadata:
@@ -26,45 +24,51 @@ spec:
       hosts:
         - store.jhipster.34.76.233.160.nip.io
 ---
+# Istio VirtualService configuration for the "store" service
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  name: store-gw-virtualservice
+  # Name and namespace of the VirtualService
+  name: store-virtualservice
   namespace: jhipster
   labels:
-    service: store-gw-virtualservice
+    service: store-virtualservice
 spec:
   hosts:
+    # Hostname for the VirtualService
     - store.jhipster.34.76.233.160.nip.io
   gateways:
     - store-gateway
   http:
     - match:
+        # Match criteria based on URI and user-agent header
         - uri:
             prefix: /
           headers:
             user-agent:
               regex: ".*Chrome"
       route:
+        # Route traffic to version "v2" of the "store" service subset
         - destination:
             host: store
-            subset: v2  
+            subset: v2
       fault:
-          delay:
-            percent: 50
-            fixedDelay: 10s
+        # Introduce fault for 50% of the matched traffic
+        delay:
+          percent: 50
+          fixedDelay: 10s
     - match:
         - uri:
             prefix: /
       route:
         - destination:
             host: store
-            subset: v1  
+            subset: v1
       fault:
-          abort:
-            percentage: 
-              value: 50
-            httpStatus: 500                          
+        abort:
+          percentage:
+            value: 50
+          httpStatus: 500
     - match:
         - uri:
             prefix: /services/invoice/

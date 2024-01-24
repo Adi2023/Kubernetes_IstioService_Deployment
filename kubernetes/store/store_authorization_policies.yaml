@@ -1,13 +1,16 @@
+# AuthorizationPolicy for allowing traffic from the "store" service to the "invoice" service in the "production" namespace
 apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
 metadata:
-  name: authorization-policy-store-to-invoice
-  namespace: production
+  name: authorization-policy-store-to-invoice  
+  namespace: production                         
 spec:
   selector:
     matchLabels:
-      app: store
-  action: ALLOW
+      app: store  
+  action: ALLOW   
+
+  # Rule allowing GET requests to "/invoice" from the "store" service
   rules:
   - to:
     - operation:
@@ -17,6 +20,8 @@ spec:
     - source:
         labels:
           app: store
+
+  # Rule allowing POST requests to "/invoice" from the "store" service
   - to:
     - operation:
         methods: ["POST"]

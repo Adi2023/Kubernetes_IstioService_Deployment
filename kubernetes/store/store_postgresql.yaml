@@ -1,3 +1,4 @@
+# Secret for PostgreSQL database credentials used by the "store" service
 apiVersion: v1
 kind: Secret
 metadata:
@@ -9,6 +10,7 @@ type: Opaque
 data:
   postgresql-password: ZjA4MjI3MDI0ZmU2OWQzOWVkM2U2YWM3ODliOTVlYTRlYmE1MzhiYjFjMDI0MTUwYWVkNTg3MmNiZDE4
 ---
+# Deployment configuration for the PostgreSQL database used by the "store" service
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -24,6 +26,7 @@ spec:
       labels:
         app: store-postgresql
       annotations:
+        # Annotation to disable Istio sidecar injection for this pod
         sidecar.istio.io/inject: "false"
     spec:
       volumes:
@@ -54,6 +57,7 @@ spec:
               memory: "1Gi"
               cpu: "1"
 ---
+# Service configuration for the PostgreSQL database used by the "store" service
 apiVersion: v1
 kind: Service
 metadata:
@@ -61,6 +65,7 @@ metadata:
   namespace: production
 spec:
   selector:
+    # Selector to match pods with the label "app: store-postgresql"
     app: store-postgresql
   ports:
     - port: 5432
