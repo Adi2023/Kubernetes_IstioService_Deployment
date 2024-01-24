@@ -1,3 +1,4 @@
+# Strict mTLS enforcement for Invoice service
 apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
 metadata:
@@ -7,9 +8,11 @@ spec:
   selector:
     matchLabels:
       app: invoice
+  # Enforce strict mutual TLS for secure communication
   mtls:
     mode: STRICT
 ---
+# JWT-based RequestAuthentication for Invoice service
 apiVersion: security.istio.io/v1beta1
 kind: RequestAuthentication
 metadata:
@@ -19,8 +22,11 @@ spec:
   selector:
     matchLabels:
       app: invoice
+  # Define rules for JWT verification
   jwtRules:
   - issuer: https://invoice-idp.example.com
+    # Specify the JWKS URI for JSON Web Key Set used in signature verification
     jwksUri: https://invoice-idp.example.com/.well-known/jwks.json
+
 
 

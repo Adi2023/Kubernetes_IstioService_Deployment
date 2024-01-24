@@ -9,13 +9,17 @@ spec:
   http:
     - route:
         - destination:
-            host: store
+            host: invoice
             subset: "v1"
-          weight: 100
+          weight: 80
         - destination:
-            host: store
-            subset: "v1"
-          weight: 100          
+            host: invoice
+            subset: "v2"
+          weight: 20
+        - destination:
+          host: notification
+          subset: "v1"
+          weight: 100            
       retries:
         attempts: 3
         perTryTimeout: 2s

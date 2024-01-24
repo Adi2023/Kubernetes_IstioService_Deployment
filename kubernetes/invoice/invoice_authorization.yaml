@@ -1,0 +1,52 @@
+# AuthorizationPolicy: deny-post-on-invoice-v2
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: deny-post-on-invoice-v2
+  namespace: production
+spec:
+  # Selector to target specific pods based on labels
+  selector:
+    matchLabels:
+      app: invoice
+      version: v2
+  # Deny action for specified rules
+  action: DENY
+  rules:
+  - to:
+      # Target operations with specified methods and paths
+      - operation:
+          methods: ["POST"]
+        paths: ["/invoice"]
+      # Allow access only from pods with the label 'app: store'
+    from:
+      - source:
+          labels:
+            app: store
+---            
+
+# AuthorizationPolicy: allow-requests-on-invoice-v1
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: allow-requests-on-invoice-v1
+  namespace: production
+spec:
+  # Selector to target specific pods based on labels
+  selector:
+    matchLabels:
+      app: invoice
+      version: v1
+  # Allow action for specified rules
+  action: ALLOW
+  rules:
+  - to:
+      # Target operations with specified methods and paths
+      - operation:
+          methods: ["GET", "POST"]
+        paths: ["/invoice"]
+      # Allow access only from pods with the label 'app: store'
+    from:
+      - source:
+          labels:
+            app: store

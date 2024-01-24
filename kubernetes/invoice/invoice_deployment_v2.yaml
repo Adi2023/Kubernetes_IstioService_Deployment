@@ -1,4 +1,4 @@
-# Deployment configuration for Invoice service in the production namespace
+# Deployment configuration for Invoice service:v2 in the production namespace
 
 apiVersion: apps/v1
 kind: Deployment
@@ -10,12 +10,12 @@ spec:
   selector:
     matchLabels:
       app: invoice
-      version: "v1"
+      version: "v2"
   template:
     metadata:
       labels:
         app: invoice
-        version: "v1"
+        version: "v2"
     spec:
       # Pod anti-affinity to ensure high availability
       affinity:
@@ -51,7 +51,7 @@ spec:
       containers:
         # Main container for the Invoice application
         - name: invoice-app
-          image: kamathadityaa/invoice-istio
+          image: kamathadityaa/invoice-istio:v2
           env:
             - name: JHIPSTER_SPRING_PROFILES_ACTIVE
               value: prod
