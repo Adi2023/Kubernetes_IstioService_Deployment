@@ -4,7 +4,7 @@ Welcome to the deployment project for a full-stack Ecommerce website on Kubernet
 
 ## Project Overview
 
-In this project, I leverage Kubernetes to orchestrate the deployment of microservices that collectively form a robust Ecommerce website. Istio, our service mesh of choice, is employed to enhance the capabilities of our microservices, focusing on key features such as:
+In this project, I leverage Kubernetes to orchestrate the deployment of microservices that collectively form a robust Ecommerce website. Istio is my service mesh of choice, which is employed to enhance the capabilities of our microservices, focusing on key features such as:
 
 ### Traffic Management
 
