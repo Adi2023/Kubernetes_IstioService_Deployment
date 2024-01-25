@@ -1,0 +1,57 @@
+# ConfigMap to store neccesary information used by oauth2-proxy. I have kept dummy information in the yaml. Feel free to add your own configurations. 
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: oauth2-proxy-config
+data:
+  oauth2_proxy.cfg: |
+    provider = "oidc"
+    oidc_issuer_url = "https://keycloak.example.com/"
+    client_id = "kubernetes"
+    client_secret = "your-client-secret"
+    cookie_secret = "your-cookie-secret"
+    redirect_url = "https://your-istio-ingress/oauth2/callback"
+    email_domains = ["*"]
+    upstreams = ["http://store-service:80"]
+    # Add more configuration according to your needs
+---
+# Deployment manifest for the OAuth2 Proxy:
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oauth2-proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oauth2-proxy
+  template:
+    metadata:
+      labels:
+        app: oauth2-proxy
+    spec:
+      containers:
+      - name: oauth2-proxy
+        image: quay.io/oauth2-proxy/oauth2-proxy:v7.2.0
+        ports:
+        - containerPort: 4180
+        volumeMounts:
+        - name: oauth2-proxy-config
+          mountPath: /etc/oauth2_proxy
+      volumes:
+      - name: oauth2-proxy-config
+        configMap:
+          name: oauth2-proxy-config
+---
+# Exposing Service to expose the oauth2-proxy
+apiVersion: v1
+kind: Service
+metadata:
+  name: oauth2-proxy
+spec:
+  selector:
+    app: oauth2-proxy
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 4180

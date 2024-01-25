@@ -11,7 +11,6 @@ spec:
   mtls:
     mode: STRICT
 ---
-# RequestAuthentication policy for the "store" service validating JWT tokens
 apiVersion: security.istio.io/v1beta1
 kind: RequestAuthentication
 metadata:
@@ -22,5 +21,8 @@ spec:
     matchLabels:
       app: store
   jwtRules:
-  - issuer: https://store-idp.example.com
-    jwksUri: https://store-idp.example.com/.well-known/jwks.json
+  - issuer: "https://your-oauth2-provider.example.com" # Replace with your OAuth2 provider's issuer URL
+    jwksUri: "https://your-oauth2-provider.example.com/.well-known/jwks.json" # Replace with your OAuth2 provider's JWKS URI
+    # Optionally, you can also define the audiences that should be allowed to access
+    audiences:
+      - "api://default" # Replace with your intended audience if needed

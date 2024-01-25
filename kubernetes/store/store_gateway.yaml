@@ -22,38 +22,53 @@ spec:
         name: http2
         protocol: HTTP2
       hosts:
-        - store.jhipster.34.76.233.160.nip.io
+      - "store.jhipster.34.76.233.160.nip.io"
+      - "oauth2-proxy.production.svc.cluster.local" # The OAuth2 proxy service
+
 ---
 # Istio VirtualService configuration for the "store" service
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  # Name and namespace of the VirtualService
   name: store-virtualservice
-  namespace: jhipster
+  namespace: production
   labels:
     service: store-virtualservice
 spec:
   hosts:
-    # Hostname for the VirtualService
     - store.jhipster.34.76.233.160.nip.io
   gateways:
     - store-gateway
   http:
+    # Route for the OAuth2 proxy
     - match:
-        # Match criteria based on URI and user-agent header
+        - uri:
+            prefix: /oauth2
+      route:
+        - destination:
+            host: oauth2-proxy.production.svc.cluster.local
+            port:
+              number: 80
+    # Authentication required for all services
+    - match:
+        - uri:
+            prefix: /services/
+      route:
+        - destination:
+            host: oauth2-proxy.production.svc.cluster.local
+            port:
+              number: 80
+    - match:
         - uri:
             prefix: /
           headers:
             user-agent:
               regex: ".*Chrome"
       route:
-        # Route traffic to version "v2" of the "store" service subset
         - destination:
             host: store
             subset: v2
       fault:
-        # Introduce fault for 50% of the matched traffic
         delay:
           percent: 50
           fixedDelay: 10s
@@ -69,6 +84,7 @@ spec:
           percentage:
             value: 50
           httpStatus: 500
+    # All traffic to /services/invoice is authenticated then rewritten to the root of the invoice service
     - match:
         - uri:
             prefix: /services/invoice/
@@ -77,6 +93,7 @@ spec:
       route:
         - destination:
             host: invoice
+    # All traffic to /services/notification is authenticated then rewritten to the root of the notification service
     - match:
         - uri:
             prefix: /services/notification/
@@ -85,6 +102,7 @@ spec:
       route:
         - destination:
             host: notification
+    # All traffic to /services/product is authenticated then rewritten to the root of the product service
     - match:
         - uri:
             prefix: /services/product/
@@ -93,6 +111,10 @@ spec:
       route:
         - destination:
             host: product
-    - route:
+    # Default route for authenticated traffic
+    - match:
+        - uri:
+            prefix: /
+      route:
         - destination:
             host: store
