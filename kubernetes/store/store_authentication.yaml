@@ -1,4 +1,4 @@
-# PeerAuthentication policy for the "store" service enforcing STRICT mutual TLS
+# PeerAuthentication policy to enforce mTLS for the "store" service
 apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
 metadata:
@@ -7,10 +7,12 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: store
+      app: store 
   mtls:
-    mode: STRICT
+    mode: STRICT  # Enforces mTLS for all incoming connections
+
 ---
+# RequestAuthentication policy for JWT validation for the "store" service
 apiVersion: security.istio.io/v1beta1
 kind: RequestAuthentication
 metadata:
@@ -19,10 +21,9 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: store
+      app: store 
   jwtRules:
   - issuer: "https://your-oauth2-provider.example.com" # Replace with your OAuth2 provider's issuer URL
-    jwksUri: "https://your-oauth2-provider.example.com/.well-known/jwks.json" # Replace with your OAuth2 provider's JWKS URI
-    # Optionally, you can also define the audiences that should be allowed to access
-    audiences:
-      - "api://default" # Replace with your intended audience if needed
+    jwksUri: "https://your-oauth2-provider.example.com/.well-known/jwks.json" # JWKS URI of the OAuth2 provider
+
+    

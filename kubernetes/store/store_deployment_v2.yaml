@@ -1,10 +1,9 @@
-# Deployment for the "store" microservice in the "production" namespace
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: production
 spec:
-  replicas: 2
+  replicas: 2  # Number of pod replicas
   selector:
     matchLabels:
       version: "v2"
@@ -12,6 +11,7 @@ spec:
     spec:
       affinity:
         podAntiAffinity:
+          # Ensures that the pods are not co-located on a single node
           preferredDuringSchedulingIgnoredDuringExecution:
             - podAffinityTerm:
                 labelSelector:
@@ -21,7 +21,6 @@ spec:
                       values:
                         - store
                 topologyKey: kubernetes.io/hostname
-              # Weight for anti-affinity rule
               weight: 100
       initContainers:
         # Init container to check database connectivity before starting the main application
@@ -33,7 +32,6 @@ spec:
             - |
               while true
               do
-                # Check if the PostgreSQL database is reachable
                 rt=$(nc -z -w 1 store-postgresql 5432)
                 if [ $? -eq 0 ]; then
                   echo "DB is UP"
@@ -45,45 +43,42 @@ spec:
       containers:
         - name: store-app
           image: kamathadityaa/store-istio:v2
+          securityContext:
+            runAsUser: 1000  # Run as non-root user for security
+            runAsGroup: 3000
+            allowPrivilegeEscalation: false
           env:
-            # Environment variables for configuring the "store" microservice
+            # Environment variables for configuring the store microservice
             - name: SPRING_PROFILES_ACTIVE
               value: prod
             - name: JHIPSTER_SECURITY_AUTHENTICATION_JWT_BASE64_SECRET
-              # Reference to a Kubernetes secret for JWT secret
               valueFrom:
                 secretKeyRef:
                   name: jwt-secret
                   key: secret
+            # Database configuration
             - name: SPRING_DATASOURCE_URL
-              # Database connection URL
               value: jdbc:postgresql://store-postgresql.production.svc.cluster.local:5432/store
             - name: SPRING_DATASOURCE_USERNAME
-              # Database username
               value: store
             - name: SPRING_R2DBC_PASSWORD
-              # Reference to a Kubernetes secret for R2DBC password
               valueFrom:
                 secretKeyRef:
                   name: store-postgresql
                   key: postgresql-password
+            # Additional configurations for the application
             - name: SPRING_LIQUIBASE_URL
-              # Liquibase database migration URL
               value: jdbc:postgresql://store-postgresql.production.svc.cluster.local:5432/store
             - name: SPRING_R2DBC_URL
-              # R2DBC connection URL
               value: r2dbc:postgresql://store-postgresql.production.svc.cluster.local:5432/store
             - name: SPRING_SLEUTH_PROPAGATION_KEYS
-              # Sleuth propagation keys for distributed tracing
               value: "x-request-id,x-ot-span-context"
             - name: JAVA_OPTS
-              # Java options for the JVM
               value: " -Xmx256m -Xms256m"
             - name: SERVER_SHUTDOWN
-              # Shutdown mode for the server
               value: graceful
           resources:
-            # Resource limits and requests for the container
+            # Resource limits and requests
             requests:
               memory: "512Mi"
               cpu: "500m"
@@ -91,11 +86,10 @@ spec:
               memory: "1Gi"
               cpu: "1"
           ports:
-            # Port configuration for the HTTP endpoint
             - name: http
               containerPort: 8080
           readinessProbe:
-            # Readiness probe configuration
+            # Readiness probe to check if the service is ready to handle traffic
             httpGet:
               path: /management/health/readiness
               port: http
@@ -103,9 +97,15 @@ spec:
             periodSeconds: 15
             failureThreshold: 6
           livenessProbe:
-            # Liveness probe configuration
+            # Liveness probe to check if the service is alive and running
             httpGet:
               path: /management/health/liveness
               port: http
             initialDelaySeconds: 100
-
+            periodSeconds: 10
+            failureThreshold: 3
+          lifecycle:
+            # Lifecycle hook for graceful shutdown of container
+            preStop:
+              exec:
+                command: ["/bin/sh", "-c", "sleep 10"]

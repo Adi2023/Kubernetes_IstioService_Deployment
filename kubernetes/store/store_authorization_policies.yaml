@@ -1,32 +1,21 @@
-# AuthorizationPolicy for allowing traffic from the "store" service to the "invoice" service in the "production" namespace
 apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
 metadata:
-  name: authorization-policy-store-to-invoice  
-  namespace: production                         
+  name: store-policy
+  namespace: production # Replace with your store service's namespace
 spec:
   selector:
     matchLabels:
       app: store  
-  action: ALLOW   
-
-  # Rule allowing GET requests to "/invoice" from the "store" service
+  action: ALLOW
   rules:
-  - to:
-    - operation:
-        methods: ["GET"]
-      paths: ["/invoice"]
-    from:
+  # Rule to allow traffic from Istio ingress gateway to the store service
+  - from:
     - source:
-        labels:
-          app: store
+        principals: ["cluster.local/ns/istio-system/sa/istio-ingressgateway-service-account"]
 
-  # Rule allowing POST requests to "/invoice" from the "store" service
+  # Rule to restrict access to specific paths in the store service
   - to:
     - operation:
-        methods: ["POST"]
-      paths: ["/invoice"]
-    from:
-    - source:
-        labels:
-          app: store
+        methods: ["GET", "POST"]
+        paths: ["/some/specific/path", "/another/path"]

@@ -4,7 +4,6 @@ metadata:
   name: store-virtualservice
   namespace: jhipster
 spec:
-  # Define the hosts that this VirtualService is applicable to.
   hosts:
     - store
   # Define the routing rules for incoming traffic.
@@ -15,17 +14,14 @@ spec:
             host: invoice
             subset: "v1"
           weight: 80
-        # Route 20% of traffic to the "v2" subset of the "invoice" service.
         - destination:
             host: invoice
             subset: "v2"
           weight: 20
-        # Route 100% of traffic to the "v1" subset of the "notification" service.
         - destination:
             host: notification
             subset: "v1"
           weight: 100
-
       # Define retry settings for the routes.
       retries:
         attempts: 3

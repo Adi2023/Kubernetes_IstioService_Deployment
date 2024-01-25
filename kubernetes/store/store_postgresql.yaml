@@ -31,7 +31,8 @@ spec:
     spec:
       volumes:
         - name: data
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: store-postgres-pvc
       containers:
         - name: postgres
           image: postgres:14.2
@@ -48,7 +49,6 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /var/lib/postgresql/data
-              subPath: postgres
           resources:
             requests:
               memory: "512Mi"
@@ -56,6 +56,35 @@ spec:
             limits:
               memory: "1Gi"
               cpu: "1"
+          livenessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - store
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - store
+            initialDelaySeconds: 5
+            periodSeconds: 10
+---
+# PersistentVolumeClaim for PostgreSQL data
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: store-postgres-pvc
+  namespace: production
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
 ---
 # Service configuration for the PostgreSQL database used by the "store" service
 apiVersion: v1
@@ -65,7 +94,6 @@ metadata:
   namespace: production
 spec:
   selector:
-    # Selector to match pods with the label "app: store-postgresql"
     app: store-postgresql
   ports:
     - port: 5432

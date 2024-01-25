@@ -1,5 +1,3 @@
-# DestinationRule configuration for the store virtual-service in the production namespace
-
 apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
 metadata:
@@ -7,26 +5,34 @@ metadata:
   namespace: production
 spec:
   host: store
+  # Traffic policies to apply to this destination
   trafficPolicy:
+    # Load balancing policy
     loadBalancer:
       simple: RANDOM
+    # Connection pool settings for TCP and HTTP
     connectionPool:
       tcp:
         maxConnections: 30
         connectTimeout: 100ms
       http:
+        # Max number of pending HTTP requests on a connection
         http1MaxPendingRequests: 10
         http2MaxRequests: 100
         maxRequestsPerConnection: 10
         maxRetries: 5
+    # Outlier detection to eject unhealthy instances
     outlierDetection:
       consecutive5xxErrors: 5
       interval: 30s
       baseEjectionTime: 60s
+  # Define subsets for service versions
   subsets:
     - name: v1
       labels:
         version: v1
     - name: v2 
       labels:
-        version: v2   
+        version: v2
+  # Optional: Add mTLS settings here if required for secure communication from client side. 
+  # Remember, enabling mTLS with ISTIO_MUTUAL requires that both the client and server services are part of the Istio service mesh with sidecar proxies injected.
