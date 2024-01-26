@@ -40,7 +40,6 @@ As part of our commitment to security, the project delves into various Istio fea
 - **Oauth2 Proxy Authentication:** Implemented robust user authentication mechanisms to ensure that only authorized entities interact with our microservices using OAuth2 authentication. To understand how this works, please go through the below flowchart:
   <br>
   <p align="center">
-    <img src="https://github.com/Adi2023/Kubernetes_IstioService_Deployment/blob/master/Outh2-Istio.jpg" width="400" style="margin-right: 10px;"/>
     <img src="https://github.com/Adi2023/Kubernetes_IstioService_Deployment/blob/master/Oauth2-SequenceDiagram.png" width="400" style="margin-left: 10px;"/>
   </p>
 - **Peer Authentication:** Enforcing mutual TLS (mTLS) authentication between microservices for secure communication.
