@@ -63,7 +63,7 @@ Monitoring the application is a key aspect to know how our application behaves u
 
 ## Getting Started
 
-Feel free to get started with this microservice architecture and play around with additional Istio features.
+Feel free to get started with this microservice architecture and play around with additional Istio features. Please note that in few of my yaml files such as secrets, OAuth2 configuratioons,etc I have avoided using the actual content. While working on your cluster please replace those field values with your actual values. 
 
 ## Contributions
 
