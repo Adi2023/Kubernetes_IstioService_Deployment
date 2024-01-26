@@ -42,7 +42,8 @@ As part of our commitment to security, the project delves into various Istio fea
 <div align="center">
     <img src="https://github.com/Adi2023/Kubernetes_IstioService_Deployment/blob/master/Outh2-Istio.jpg" width="400">
 </div>
-(Src for the above image : https://napo.io/posts/istio-oidc-authn--authz-with-oauth2-proxy/)
+<div align="center">(Src for the above image : https://napo.io/posts/istio-oidc-authn--authz-with-oauth2-proxy/)</div>
+<br>
 <div align="center">
     <img src="https://github.com/Adi2023/Kubernetes_IstioService_Deployment/blob/master/Oauth2-SequenceDiagram.png" width="400">
 </div>  
