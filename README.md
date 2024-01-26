@@ -6,7 +6,9 @@ Welcome to the deployment project for a full-stack Ecommerce website on Kubernet
 
 Utilizing JHipster, I have developed a microservice-webapp application with a Java-based backend and a ReactJs frontend.
 
-My setup involves a Kubernetes single-node cluster, configured for production use, orchestrating these microservices to form a dynamic Ecommerce website. Istio is my service mesh of choice, which is employed to enhance the capabilities of our microservices. 
+My setup involves a Kubernetes single-node cluster, configured for production use, orchestrating these microservices to form a dynamic Ecommerce website. Istio is my service mesh of choice, which is employed to enhance the capabilities of our microservices. Please find below the attached Microservice Architecture deployment on Kubernetes Cluster along with Istio. 
+
+
 
 This project will be focusing on key features such as:
 
@@ -33,6 +35,8 @@ This project will be focusing on key features such as:
 As part of our commitment to security, the project delves into various Istio features aimed at securing our Ecommerce application:
 
 - **Oauth2 Proxy Authentication:** Implemented robust user authentication mechanisms to ensure that only authorized entities interact with our microservices using OAuth2 authentication. To understand how this works, please go through the below flowchart:
+
+
 - **Peer Authentication:** Enforcing mutual TLS (mTLS) authentication between microservices for secure communication.
 - **Request Authentication:** Protecting endpoints by validating JWT tokens to ensure the legitimacy of incoming requests.
 - **Authorization:** Controlled access to microservices based on predefined policies to enhance security.
