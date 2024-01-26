@@ -9,7 +9,7 @@ Utilizing JHipster, I have developed a microservice-webapp application with a Ja
 My setup involves a Kubernetes single-node cluster, configured for production use, orchestrating these microservices to form a dynamic Ecommerce website. Istio is my service mesh of choice, which is employed to enhance the capabilities of our microservices. Please find below the attached Microservice Architecture deployment on Kubernetes Cluster along with Istio. 
 
 <div align="center">
-    <img src="https://github.com/Adi2023/Kubernetes_IstioService_Deployment/blob/master/MicroService-Architecture-on-istio.jpg width="800">
+    <img src="https://github.com/Adi2023/Kubernetes_IstioService_Deployment/blob/master/MicroService-Architecture-on-istio.jpg" width="800">
 </div>
 
 This project will be focusing on key features such as:
@@ -41,7 +41,7 @@ As part of our commitment to security, the project delves into various Istio fea
 ## OAuth2 Authentication Flow with Istio
 
 <p align="center">
-  <img src="https://github.com/Adi2023/Kubernetes_IstioService_Deployment/blob/master/Outh2-Istio.jpg" width="400" style="margin-right: 10px;"/>
+  <img src="https://github.com/Adi2023/Kubernetes_IstioService_Deployment/blob/master/Outh2-Istio.jpg" width="400" style="margin-right: 8px;"/>
   <img src="https://github.com/Adi2023/Kubernetes_IstioService_Deployment/blob/master/Oauth2-SequenceDiagram.png" width="400" style="margin-left: 10px;"/>
 </p>
   
