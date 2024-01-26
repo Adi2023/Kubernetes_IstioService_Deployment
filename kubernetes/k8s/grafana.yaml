@@ -6,9 +6,10 @@ metadata:
 type: kubernetes.io/tls
 data:
   tls.crt: |
-    BASE64_ENCODED_CERTIFICATE_CONTENT
+    BASE64_ENCODED_CERTIFICATE_CONTENT  # Replace with actual certificate content
   tls.key: |
-    BASE64_ENCODED_PRIVATE_KEY_CONTENT
+    BASE64_ENCODED_PRIVATE_KEY_CONTENT  # Replace with actual private key content
+
 ---
 apiVersion: networking.istio.io/v1beta1
 kind: Gateway
@@ -27,7 +28,8 @@ spec:
     - grafana.istio-system.34.76.233.160.nip.io
     tls:
       mode: SIMPLE
-      credentialName: grafana-observability-certificate
+      credentialName: grafana-certificate  # Adjust to match the Secret name
+
 ---
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
@@ -38,7 +40,7 @@ spec:
   hosts:
     - grafana.istio-system.34.76.233.160.nip.io
   gateways:
-    - grafana-gateway
+    - grafana-observability-gateway  # Adjust to match the Gateway name
   http:
   - match:
     - uri:

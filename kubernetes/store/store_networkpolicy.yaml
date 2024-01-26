@@ -1,17 +1,20 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-invoice-notification-to-store
+  name: store-network-policy
   namespace: production
 spec:
   podSelector:
     matchLabels:
       app: store
-  ingress:
-  - from:
-    - podSelector:
-        matchLabels:
-          app: invoice
-    - podSelector:
-        matchLabels:
-          app: notification
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+      - podSelector:
+          matchLabels:
+            app: invoice
+    - to:
+      - podSelector:
+          matchLabels:
+            app: notification

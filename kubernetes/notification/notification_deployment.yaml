@@ -47,6 +47,10 @@ spec:
       containers:
         - name: notification-app
           image: kamathadityaa/notification-istio
+          securityContext:
+            runAsUser: 1000  # Run as non-root user for security
+            runAsGroup: 3000
+            allowPrivilegeEscalation: false          
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: prod

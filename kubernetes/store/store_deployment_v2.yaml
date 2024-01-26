@@ -1,6 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: store
   namespace: production
 spec:
   replicas: 2  # Number of pod replicas
