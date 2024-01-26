@@ -4,9 +4,10 @@ Welcome to the deployment project for a full-stack Ecommerce website on Kubernet
 
 ## Project Overview
 
-Utilizing JHipster, I have developed a microservice-webapp application with a Java-based backend and a ReactJs frontend. My setup involves a Kubernetes single-node cluster, configured for production use, orchestrating these microservices to form a dynamic Ecommerce website.
+Utilizing JHipster, I have developed a microservice-webapp application with a Java-based backend and a ReactJs frontend.
 
-Istio is my service mesh of choice, which is employed to enhance the capabilities of our microservices. 
+My setup involves a Kubernetes single-node cluster, configured for production use, orchestrating these microservices to form a dynamic Ecommerce website. Istio is my service mesh of choice, which is employed to enhance the capabilities of our microservices. 
+
 This project will be focusing on key features such as:
 
 ### Traffic Management
