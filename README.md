@@ -38,13 +38,11 @@ This project will be focusing on key features such as:
 As part of our commitment to security, the project delves into various Istio features aimed at securing our Ecommerce application:
 
 - **Oauth2 Proxy Authentication:** Implemented robust user authentication mechanisms to ensure that only authorized entities interact with our microservices using OAuth2 authentication. To understand how this works, please go through the below flowchart:
-<br>
-<p align="center">
-  <img src="https://github.com/Adi2023/Kubernetes_IstioService_Deployment/blob/master/Outh2-Istio.jpg" width="400" style="margin-right: 10px;"/>
-  <img src="https://github.com/Adi2023/Kubernetes_IstioService_Deployment/blob/master/Oauth2-SequenceDiagram.png" width="400" style="margin-left: 10px;"/>
-</p>
-
-
+  <br>
+  <p align="center">
+    <img src="https://github.com/Adi2023/Kubernetes_IstioService_Deployment/blob/master/Outh2-Istio.jpg" width="400" style="margin-right: 10px;"/>
+    <img src="https://github.com/Adi2023/Kubernetes_IstioService_Deployment/blob/master/Oauth2-SequenceDiagram.png" width="400" style="margin-left: 10px;"/>
+  </p>
 - **Peer Authentication:** Enforcing mutual TLS (mTLS) authentication between microservices for secure communication.
 - **Request Authentication:** Protecting endpoints by validating JWT tokens to ensure the legitimacy of incoming requests.
 - **Authorization:** Controlled access to microservices based on predefined policies to enhance security.
@@ -54,6 +52,7 @@ As part of our commitment to security, the project delves into various Istio fea
 - **Non-Root User Privileges:** Deployed containers with non-root user privileges to enhance security and minimize the impact of potential exploits.
 - **Certificate Management:** Implemented and managed SSL/TLS certificates for secure communication.
 
+  
 ## Monitoring the Application
 
 Monitoring the application is a key aspect to know how our application behaves under various conditions. I have used the famous monitoring duo - Prometheus and Grafana. As Kiali goes well with Istio Mesh I have used it for monitoring my traffic state of the application. 
