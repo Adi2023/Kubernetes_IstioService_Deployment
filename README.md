@@ -8,7 +8,9 @@ Utilizing JHipster, I have developed a microservice-webapp application with a Ja
 
 My setup involves a Kubernetes single-node cluster, configured for production use, orchestrating these microservices to form a dynamic Ecommerce website. Istio is my service mesh of choice, which is employed to enhance the capabilities of our microservices. Please find below the attached Microservice Architecture deployment on Kubernetes Cluster along with Istio. 
 
-![Project Overview Image](https://github.com/Adi2023/Kubernetes_IstioService_Deployment/blob/master/MicroService-Architecture-on-istio.jpg)
+<div align="center">
+    <img src="https://github.com/Adi2023/Kubernetes_IstioService_Deployment/blob/master/MicroService-Architecture-on-istio.jpg width="800">
+</div>
 
 This project will be focusing on key features such as:
 
@@ -38,16 +40,11 @@ As part of our commitment to security, the project delves into various Istio fea
 
 ## OAuth2 Authentication Flow with Istio
 
-![Oauth2 proxy image](https://github.com/Adi2023/Kubernetes_IstioService_Deployment/blob/master/Outh2-Istio.jpg)
-(Src - https://napo.io/posts/istio-oidc-authn--authz-with-oauth2-proxy/)
-
-![Oauth2 Sequence Diagram](https://github.com/Adi2023/Kubernetes_IstioService_Deployment/blob/master/Oauth2-SequenceDiagram.png)
-
-
-## OAuth2 Authentication Flow with Istio
-
-<img src="https://github.com/Adi2023/Kubernetes_IstioService_Deployment/blob/master/Oauth2-SequenceDiagram.png" width="600">
-
+<p align="center">
+  <img src="https://github.com/Adi2023/Kubernetes_IstioService_Deployment/blob/master/Outh2-Istio.jpg" width="400" style="margin-right: 10px;"/>
+  <img src="https://github.com/Adi2023/Kubernetes_IstioService_Deployment/blob/master/Oauth2-SequenceDiagram.png" width="400" style="margin-left: 10px;"/>
+</p>
+  
 - **Peer Authentication:** Enforcing mutual TLS (mTLS) authentication between microservices for secure communication.
 - **Request Authentication:** Protecting endpoints by validating JWT tokens to ensure the legitimacy of incoming requests.
 - **Authorization:** Controlled access to microservices based on predefined policies to enhance security.
