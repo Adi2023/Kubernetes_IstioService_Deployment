@@ -12,6 +12,8 @@ My setup involves a Kubernetes single-node cluster, configured for production us
     <img src="https://github.com/Adi2023/Kubernetes_IstioService_Deployment/blob/master/MicroService-Architecture-on-istio.jpg" width="800">
 </div>
 
+<br>
+
 This project will be focusing on key features such as:
 
 ### Traffic Management
@@ -42,7 +44,7 @@ As part of our commitment to security, the project delves into various Istio fea
 
 <p align="center">
   <img src="https://github.com/Adi2023/Kubernetes_IstioService_Deployment/blob/master/Outh2-Istio.jpg" width="400" style="margin-right: 8px;"/>
-  <img src="https://github.com/Adi2023/Kubernetes_IstioService_Deployment/blob/master/Oauth2-SequenceDiagram.png" width="400" style="margin-left: 10px;"/>
+  <img src="https://github.com/Adi2023/Kubernetes_IstioService_Deployment/blob/master/Oauth2-SequenceDiagram.png" width="400" style="margin-left: 8px;"/>
 </p>
   
 - **Peer Authentication:** Enforcing mutual TLS (mTLS) authentication between microservices for secure communication.
