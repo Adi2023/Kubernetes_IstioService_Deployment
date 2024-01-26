@@ -8,7 +8,7 @@ Utilizing JHipster, I have developed a microservice-webapp application with a Ja
 
 My setup involves a Kubernetes single-node cluster, configured for production use, orchestrating these microservices to form a dynamic Ecommerce website. Istio is my service mesh of choice, which is employed to enhance the capabilities of our microservices. Please find below the attached Microservice Architecture deployment on Kubernetes Cluster along with Istio. 
 
-
+![Project Overview Image](https://github.com/Adi2023/Kubernetes_IstioService_Deployment/blob/master/MicroService-Architecture-on-istio.jpg)
 
 This project will be focusing on key features such as:
 
