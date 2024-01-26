@@ -37,7 +37,7 @@ This project will be focusing on key features such as:
 
 As part of our commitment to security, the project delves into various Istio features aimed at securing our Ecommerce application:
 
-- **Oauth2 Proxy Authentication:** Implemented robust user authentication mechanisms to ensure that only authorized entities interact with our microservices using OAuth2 authentication. To understand how this works, please go through this link : https://napo.io/posts/istio-oidc-authn--authz-with-oauth2-proxy/ .
+- **Oauth2 Proxy Authentication:** Implemented robust user authentication mechanisms to ensure that only authorized entities interact with our microservices using OAuth2 authentication. To understand how this works, please go through this link : https://napo.io/posts/istio-oidc-authn--authz-with-oauth2-proxy/.
   I have also provided a simple sequence diagram of how this mechanism happens inside Istio mesh:
   <br>
   <p align="center">
